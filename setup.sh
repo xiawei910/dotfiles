@@ -11,3 +11,6 @@ mv ~/.bash_profile ~/.bash_profile.bak
 ln -s ~/.dotfiles/bash_profile .bash_profile
 mv ~/.tmux.conf .tmux.conf.bak
 ln -s ~/.dotfiles/tmux.conf .tmux.conf
+
+bash ./setup.sh
+
