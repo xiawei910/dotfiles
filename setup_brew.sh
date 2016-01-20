@@ -28,6 +28,7 @@ brew install watch
 brew install unzip
 brew install less
 brew install openssh --with-brewed-openssl
+brew install tmux
 #brew install file-formula
 #brew install ed --with-default-names
 #brew install gnu-indent --with-default-names
