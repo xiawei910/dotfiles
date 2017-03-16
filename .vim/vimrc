@@ -1,0 +1,8 @@
+if filereadable(expand("~/.vim/vimrc/vimrc.vim"))
+  source ~/.vim/vimrc/vimrc.vim
+endif
+if filereadable(expand("~/.vim/vimrc/bundles.vim"))
+  source ~/.vim/vimrc/bundles.vim
+endif
+"source ~/.dotfiles/vim_runtime/vimrcs/bundles_conf.vim
+
