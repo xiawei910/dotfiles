@@ -1,8 +1,12 @@
-if filereadable(expand("~/.vim/vimrc/vimrc.vim"))
-  source ~/.vim/vimrc/vimrc.vim
+" For Learning Vimscript, a greate tutorial could be found:
+"   <Learn Vimscript the Hard Way>[http://learnvimscriptthehardway.stevelosh.com/]
+" Thanks to Eric Liu[github/musicx], for the startup and discues of this project.
+
+if filereadable(expand("~/.vim/vimrcs/vimrc.vim"))
+  source ~/.vim/vimrcs/vimrc.vim
 endif
-if filereadable(expand("~/.vim/vimrc/bundles.vim"))
-  source ~/.vim/vimrc/bundles.vim
+if filereadable(expand("~/.vim/vimrcs/bundles.vim"))
+  source ~/.vim/vimrcs/bundles.vim
 endif
 "source ~/.dotfiles/vim_runtime/vimrcs/bundles_conf.vim
 

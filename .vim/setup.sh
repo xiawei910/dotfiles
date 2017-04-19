@@ -14,3 +14,8 @@ fi
 cp $PWD'/vimrc' $HOME'/.vimrc'
 cp $PWD'/vimrc.vim' $VIM_RC_DIR
 cp $PWD'/bundles.vim' $VIM_RC_DIR
+
+if [ ! -d $VIM_HOME/bundle/ ]
+then
+    git clone https://github.com/VundleVim/Vundle.vim.git $VIM_HOME/bundle/Vundle.vim
+fi

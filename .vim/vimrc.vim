@@ -1,12 +1,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => General {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" fold this VIM file.
+autocmd FileType vim setlocal foldmethod=marker
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
 " Enable filetype plugins
 filetype plugin on
-filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -16,65 +19,73 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" For when you forget to sudo
-cmap w!! w !sudo tee % > /dev/null
-
+" TODO
 " Storage settings
 let s:vim_cache = expand('$HOME/.vim_tmp')
 if filewritable(s:vim_cache) == 0 && exists("*mkdir")
     call mkdir(s:vim_cache, "p", 0700)
 endif
 
+"}}}1
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+" => VIM user interface {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 5 lines to the cursor - when moving vertically using j/k
-set scrolloff=5
 
-" Ignore compiled files
-set wildignore+=*.o,*.pyc,*.exe,*.swp,*.obj
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-if has("win16") || has("win32") || has("win64")
-    set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*
-endif
+" => Windows layout {{{2
 
-" Ignored suffixes
-set suffixes+=.class,.exe,.o,.obj,.dll,.aux
+" Add a bit extra margin to the left
+set foldcolumn=1
 
-" Turn on the WiLd menu
-set wildmenu
-
-" command <Tab> completion, list matches, then longest common part, then all
-set wildmode=list:longest,full
-
-"Always show current position
-set ruler
+" toggle of line numbers
+set number
+set numberwidth=3
 
 " Height of the command bar
 set cmdheight=2
 
-" A buffer becomes hidden when it is abandoned
-set hid
+"Always show current position
+set ruler
 
+" Set 5 lines to the cursor - when moving vertically using j/k
+set scrolloff=5
+
+" highlight current line
+set cursorline
+
+" windows can be 0 line high
+set winminheight=0
+
+" A buffer becomes hidden when it is abandoned
+set hidden
+
+" allow for cursor beyond last character
+set virtualedit=onemore
+
+" TODO
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
+
+" Allow specified keys that move the cursor left/right to move to the
+" previous/next line when the cursor is on the first/last character in
+" the line.
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
+" => Search & match {{{2
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -88,61 +99,31 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set matchtime=2
 
+" => Beep {{{2
+
 " No annoying sound on errors
 set noerrorbells
 set visualbell t_vb=
 
-" Time allowed for a seris of key strokes
-set timeoutlen=600
-
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" highlight current line
-set cursorline
-
-" toggle of line numbers
-set number
-set numberwidth=3
-map <leader>ln :setlocal number!<cr>
-
-" windows can be 0 line high
-set winminheight=0
-
-" abbrev. of messages (avoids 'hit enter')
-set shortmess+=filmnrxoOtT
-
-" better unix / windows compatibility
-set viewoptions=folds,options,cursor,unix,slash
-
-" allow for cursor beyond last character
-set virtualedit=onemore
-
-" highlight problematic whitespaces
-set nolist
-map <leader>li :setlocal list!<cr>
-set listchars=tab:>-,trail:.,extends:>,nbsp:.
-autocmd FileType c,cpp,java,php,javascript,python,xml,html,teradata,sas setlocal list
-
-" No double spaces when joining lines after ".", "?", "!"
-set nojoinspaces
+" => File Type {{{2
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
 set termencoding=utf-8
 set fileencodings=utf-8,bg18030,gbk,big5
 
-" fast change fileencode and fileformat to unix/utf8
-nmap <leader>8 :set ff=unix fenc=utf-8<cr>
-
 " Use Unix as the standard file type
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 
 " Add some common encodings to be readable
-set fencs=ucs-bom,utf-8,default,cp936,gb18030,utf-16,utf-16le,big5,euc-jp,euc-kr,latin1
+set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,utf-16,utf-16le,big5,euc-jp,euc-kr,latin1
+
+"}}}1
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => Colors and Fonts {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
@@ -167,9 +148,12 @@ catch
     colorscheme desert
 endtry
 
+"}}}1
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
+" => Files, backups and undo {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set backup
 set writebackup
@@ -237,9 +221,40 @@ endfunction
 "call InitializeDirectories()
 
 
+" => wild {{{2
+"
+" Ignore compiled files
+set wildignore+=*.o,*.pyc,*.exe,*.swp,*.obj
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+if has("win16") || has("win32") || has("win64")
+    set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*
+endif
+
+" Ignored suffixes
+set suffixes+=.class,.exe,.o,.obj,.dll,.aux
+
+" Turn on the WiLd menu
+set wildmenu
+
+" command <Tab> completion, list matches, then longest common part, then all
+set wildmode=list:longest,full
+
+" abbrev. of messages (avoids 'hit enter')
+set shortmess+=filmnrxoOtT
+
+" better unix / windows compatibility
+set viewoptions=folds,options,cursor,unix,slash
+
+"}}}1
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab and indent related {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype indent on
+
 " Use spaces instead of tabs
 set expandtab
 
@@ -264,12 +279,23 @@ set textwidth=100
 set autoindent
 set smartindent
 set wrap "Wrap lines
-map <leader>wr :setlocal wrap!<cr>
+
+" highlight problematic whitespaces
+set nolist
+set listchars=tab:>-,trail:.,extends:>,nbsp:.
+autocmd FileType c,cpp,java,php,javascript,python,xml,html,teradata,sas setlocal list
+
+" No double spaces when joining lines after ".", "?", "!"
+set nojoinspaces
+
+"}}}1
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" => Moving around, tabs, windows and buffers {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Treat long lines as break lines (useful when moving around in them)
 "map j gj
 "map k gk
@@ -288,12 +314,6 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-" Count the number of researching pattern
-map <leader>gn :%s///gn<cr>
-
-" Disable highlight when <leader>h is pressed
-map <silent> <leader>h :noh<cr>
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -301,11 +321,11 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " change windows size
-nmap <C-_> <C-W>_
-nmap <M-Up> <C-W>+
-nmap <M-Down> <C-W>-
-nmap <M-Right> <C-W>>
-nmap <M-Left> <C-W><
+"nmap <C-_> <C-W>_
+"nmap <M-Up> <C-W>+
+"nmap <M-Down> <C-W>-
+"nmap <M-Right> <C-W>>
+"nmap <M-Left> <C-W><
 
 " Move window position
 map <C-Up> <C-W>K
@@ -314,7 +334,7 @@ map <C-Left> <C-W>H
 map <C-Right> <C-W>L
 
 " Control where to put the new split window
-"set splitbelow
+set splitbelow
 set splitright
 set noequalalways
 
@@ -328,8 +348,8 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>tl :tabnext 
+map <leader>tm :tabmove<cr>
+map <leader>tl :tabnext<cr>
 
 " some more [] motions
 map ]w gt
@@ -356,8 +376,46 @@ endtry
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
+     \   execute "normal! g`\"" |
      \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
+
+"}}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Hot Keys {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Time allowed for a seris of key strokes
+set timeoutlen=600
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" For when you forget to sudo
+cmap w!! w !sudo tee % > /dev/null
+
+" toggle of line numbers
+map <leader>ln :setlocal number!<cr>
+
+" highlight problematic whitespaces
+map <leader>li :setlocal list!<cr>
+
+" fast change fileencode and fileformat to unix/utf8
+nmap <leader>8 :set ff=unix fenc=utf-8<cr>
+
+map <leader>wr :setlocal wrap!<cr>
+
+" Count the number of researching pattern
+map <leader>gn :%s///gn<cr>
+
+" Disable highlight when <leader>h is pressed
+map <silent> <leader>h :noh<cr>
+
+"}}}1
+
+
