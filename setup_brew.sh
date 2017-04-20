@@ -9,7 +9,6 @@ fi
 # Update homebrew recipes
 brew update
 
-
 brew tap homebrew/dupes
 brew tap homebrew/science
 
@@ -65,6 +64,6 @@ brew install python --with-brewed-openssl
 
 
 ##### Vim #####
-brew install vim --override-system-vi
-brew install macvim --override-system-vim --custom-system-icons
+brew install vim --override-system-vi --with-lua
+brew install macvim --override-system-vim --custom-system-icons --with-lua
 

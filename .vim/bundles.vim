@@ -14,7 +14,14 @@ Plugin 'VundleVim/Vundle.vim'
 "-----------------
 " Code Completion
 "-----------------
-Plugin 'Shougo/neocomplcache'
+" neocomplcache. Note: It is not maintained well. You should use neocomplete instead.
+"Plugin 'Shougo/neocomplcache'
+
+" It provides keyword completion system by maintaining a cache of keywords in the current buffer.
+" neocomplete can be customized easily and has many more features than Vim's built-in completion.
+" neocomplete requires Vim 7.3.885+ compiled with if_lua. If :echo has("lua") returns 1, then you're
+" done; otherwise, Mac: brew install vim --with-lua; Ubuntu: apt-get install vim-nox;
+Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'MarcWeber/vim-addon-mw-utils'
