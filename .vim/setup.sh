@@ -13,7 +13,9 @@ fi
 
 cp $PWD'/vimrc' $HOME'/.vimrc'
 cp $PWD'/vimrc.vim' $VIM_RC_DIR
+cp $PWD'/filetype.vim' $VIM_RC_DIR
 cp $PWD'/bundles.vim' $VIM_RC_DIR
+cp $PWD'/bundle_conf.vim' $VIM_RC_DIR
 
 if [ ! -d $VIM_HOME/bundle/ ]
 then

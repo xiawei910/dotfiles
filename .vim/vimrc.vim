@@ -1,3 +1,6 @@
+" Vim configure
+" Use 'za' to fold or unfold the text.
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -73,6 +76,8 @@ set backspace=eol,start,indent
 " the line.
 set whichwrap+=<,>,h,l
 
+
+
 " => Status line {{{2
 
 " Always show the status line
@@ -133,6 +138,8 @@ set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
 set statusline+=%c, "cursor column
 set statusline+=%l/%L "cursor line/total lines
 set statusline+=\ %P "percent through file
+
+
 
 " => Statusline Helper functions {{{2
 
@@ -239,6 +246,49 @@ function! s:Median(nums)
     endif
 endfunction
 
+
+
+" => TabLine settings {{{2
+
+function! TabLineStyle()
+    let s = ''
+    let t = tabpagenr()
+    let i = 1
+    while i <= tabpagenr('$')
+        let buflist = tabpagebuflist(i)
+        let winnr = tabpagewinnr(i)
+        let s .= '%' . i . 'T'
+        let s .= (i == t ? '%1*' : '%2*')
+        let s .= ' '
+        let s .= i . ':'
+        let s .= '%*'
+        let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+        let file = bufname(buflist[winnr - 1])
+        let bufmodified = getbufvar(file, "&mod")
+        let file = fnamemodify(file, ':p:t')
+        "let file = pathshorten(file)
+        if file == ''
+            let file = '[No Name]'
+        endif
+        let s .= file
+        if bufmodified
+            let s .= ' +'
+        endif
+        let s .= ' '
+        let i = i + 1
+    endwhile
+    let s .= '%T%#TabLineFill#%='
+    let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+    return s
+endfunction
+
+set showtabline=2
+if exists("+showtabline")   
+    set tabline=%!TabLineStyle()
+endif
+
+
+
 " => Search & match {{{2
 
 " Highlight search results
@@ -265,11 +315,15 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set matchtime=2
 
+
+
 " => Beep {{{2
 
 " No annoying sound on errors
 set noerrorbells
 set visualbell t_vb=
+
+
 
 " => File Type {{{2
 
@@ -283,6 +337,39 @@ set fileformats=unix,dos,mac
 
 " Add some common encodings to be readable
 set fileencodings=ucs-bom,utf-8,default,cp936,gb18030,utf-16,utf-16le,big5,euc-jp,euc-kr,latin1
+
+
+
+" => GUI related {{{2
+
+if has("gui_running")
+    set lines=45 columns=130
+endif
+
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Menlo:h12
+    set shell=/bin/zsh
+elseif has("win16") || has("win32") || has("win64")
+    set gfn=Consolas:h11
+elseif has("linux")
+    set gfn=Monospace\ 10
+    set shell=/bin/bash
+endif
+
+" Open MacVim in fullscreen mode
+if has("gui_macvim")
+    set fuoptions=maxvert,maxhorz
+    "au GUIEnter * set fullscreen
+endif
+
+" Disable scrollbars (real hackers don't use scrollbars for navigation!)
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+
+
 
 "}}}1
 
@@ -388,7 +475,7 @@ endfunction
 
 
 " => wild {{{2
-"
+" TODO
 " Ignore compiled files
 set wildignore+=*.o,*.pyc,*.exe,*.swp,*.obj
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
@@ -454,6 +541,30 @@ autocmd FileType c,cpp,java,php,javascript,python,xml,html,teradata,sas setlocal
 " No double spaces when joining lines after ".", "?", "!"
 set nojoinspaces
 
+
+
+" => Parenthesis/bracket {{{2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vnoremap $1 <esc>`>a)<esc>`<i(<esc>
+"vnoremap $2 <esc>`>a]<esc>`<i[<esc>
+"vnoremap $3 <esc>`>a}<esc>`<i{<esc>
+"vnoremap $$ <esc>`>a"<esc>`<i"<esc>
+"vnoremap $q <esc>`>a'<esc>`<i'<esc>
+"vnoremap $e <esc>`>a"<esc>`<i"<esc>
+
+" Map auto complete of (, ", ', [
+"inoremap $1 ()<esc>i
+"inoremap $2 []<esc>i
+"inoremap $3 {}<esc>i
+"inoremap $4 {<esc>o}<esc>O
+"inoremap $q ''<esc>i
+"inoremap $e ""<esc>i
+"inoremap $t <><esc>i
+
+"}}}2
+
+
+
 "}}}1
 
 
@@ -461,6 +572,10 @@ set nojoinspaces
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Remap VIM 0 to first non-blank character
+"map 0 ^
+map <Home> ^
 
 " Treat long lines as break lines (useful when moving around in them)
 "map j gj
@@ -550,6 +665,105 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+"nmap <M-j> mz:m+<cr>`z
+"nmap <M-k> mz:m-2<cr>`z
+"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+"if has("mac") || has("macunix")
+  "nmap <D-j> <M-j>
+  "nmap <D-k> <M-k>
+  "vmap <D-j> <M-j>
+  "vmap <D-k> <M-k>
+"endif
+
+"}}}1
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Insert/Visual/Command/Diff mode related {{{1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" => Insert mode related {{{2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map Alt-Space to underscore
+" somehow these dont work
+"inoremap <M-Space> _
+"cnoremap <M-Space> _
+
+" Add undo point before Ctrl-U deletes the whole line
+inoremap <C-U> <C-G>u<C-U>
+
+"}}}2
+
+
+
+" => Visual mode related {{{2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+
+" => vimgrep searching {{{3
+" When you press <leader>gg you vimgrep after the selected text
+vnoremap <silent> <leader>gg :call VisualSelection('grep', '')<CR>
+
+" When you press <leader>gr you can search and replace the selected text
+vnoremap <silent> <leader>gr :call VisualSelection('replace', '')<CR>
+
+" Open vimgrep and put the cursor in the right position
+nnoremap <leader>gd :vimgrep // **/*.<left><left><left><left><left><left><left>
+
+" Vimgreps in the current file
+nnoremap <leader>gc :vimgrep // <C-R>%<C-A>
+
+"}}}3
+
+"}}}2
+
+
+
+" => Command mode related {{{2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Smart mappings on the command line
+"cno %H e ~/
+"cno %C e <C-\>eCurrentFileDir("e")<cr>
+cno <expr> %% getcmdtype() == ':' ? expand('%:p:h').'/' : '%%'
+
+" $q is super useful when browsing on the command line
+" it deletes everything until the last slash
+cno <C-Q> <C-\>eDeleteTillSlash()<cr>
+
+" Bash like keys for the command line
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+"}}}2
+
+
+
+" => Diff mode settings {{{2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Diff between 2 opened windows
+nmap <leader>dt :windo diffthis<cr>
+
+" Diff command shortcuts
+nmap <leader>du :diffupdate<cr>
+nmap <leader>df :windo diffoff<cr>
+
+"}}}2
+
+
+
 "}}}1
 
 
@@ -587,6 +801,240 @@ map <silent> <leader>h :noh<cr>
 " copy to system clipboard
 vmap <leader>y "+y
 
+" => quickfix and location list window {{{2
+
+" When you search with vimgrep, display your results in cope by doing:
+map <leader>vv :botright cope<cr>
+
+" Copy the whole quickfix window to a new tab
+map <leader>vo ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+
+" Move between location list. Covered by unimpaired [|]q etc
+"map <localleader>n :cn<cr>
+"map <localleader>p :cp<cr>
+
+"}}}2
+
+" Pressing ,zz will toggle and untoggle spell checking
+map <leader>zz :setlocal spell!<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" easier increment/decrement
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+" Map Space for folding
+map <Leader><Space> za
+
+" Quickly open a buffer for scripbble
+map <leader>q :e ~/buffer<cr>
+
+" => Editing mappings {{{2
+
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWritePre *.py :call DeleteTrailingWS()
+autocmd BufWritePre *.coffee :call DeleteTrailingWS()
+nmap <leader>mm :call DeleteTrailingWS()<cr>
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>ms mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+"}}}2
+
+" => Fast editing and reloading of vimrc configs {{{2
+
+nnoremap <leader>ev :e! $MYVIMRC<cr>
+nnoremap <leader>ee :e! $HOME/.vim/vimrcs/vimrc.vim<cr>
+"autocmd! bufwritepost vimsourcerc source $MYVIMRC
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+"}}}2
+
 "}}}1
 
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"chinese support
+"set fileencodings=utf-8,chinese,cp936
+"language messages zh_CN.utf-8
+if has("gui_running")
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+endif
+
+" enable matchit
+runtime macros/matchit.vim
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+" This function puts all the filenames in the quickfix window to the args list
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+    let buffer_numbers = {}
+    for quickfix_item in getqflist()
+        let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+    endfor
+    return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Turn persistent undo on
+"    means that you can undo even when you close a buffer/VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("persistent_undo")
+    set undofile
+    let &undodir= s:vim_cache . '/undodir'
+    if filewritable(&undodir) == 0 && exists("*mkdir")
+        call mkdir(&undodir, "p", 0700)
+    endif
+
+    augroup persistent_undo
+        au!
+        au BufWritePre *.tmp setlocal noundofile
+        au BufWritePre *.bak setlocal noundofile
+        au BufWritePre /tmp/* setlocal noundofile
+        "au BufWritePre COMMIT_EDITMSG setlocal noundofile
+        "au BufWritePre .vim-aside setlocal noundofile
+    augroup END
+endif
+
+" Map ½ to something useful
+map ½ $
+cmap ½ $
+imap ½ $
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Session control
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:session_file = s:vim_cache . '/session.vim'
+nmap <leader>ss :mks! s:session_file<cr>
+nmap <leader>ls :call LoadSession()<cr>
+" if session is loaded after vim is started, save it when exit
+let s:sessionloaded = 0
+function LoadSession()
+    source s:session_file
+    let s:sessionloaded = 1
+endfunction
+function SaveSession()
+    if s:sessionloaded == 1
+        mksession! s:session_file
+    end
+endfunction
+autocmd VimLeave * call SaveSession()
+
+"}}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" => Visual mode helper func {{{2
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'grep'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+"}}}2
+
+
+
+" => Command mode helper func {{{2
+
+func! DeleteTillSlash()
+    let g:cmd = getcmdline()
+
+    if has("win16") || has("win32") || has("win64")
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+    else
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+    endif
+
+    if g:cmd == g:cmd_edited
+        if has("win16") || has("win32") || has("win64")
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+        else
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+        endif
+    endif
+
+    return g:cmd_edited
+endfunc
+
+func! CurrentFileDir(cmd)
+    return a:cmd . " " . expand("%:p:h") . "/"
+endfunc
+
+"}}}2
+
+
+
+" => Status Line Helper func {{{2
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
+"}}}2
+
+
+
+"}}}1

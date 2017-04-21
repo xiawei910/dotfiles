@@ -5,8 +5,14 @@
 if filereadable(expand("~/.vim/vimrcs/vimrc.vim"))
   source ~/.vim/vimrcs/vimrc.vim
 endif
+if filereadable(expand("~/.vim/vimrcs/filetype.vim"))
+  source ~/.vim/vimrcs/filetype.vim
+endif
 if filereadable(expand("~/.vim/vimrcs/bundles.vim"))
   source ~/.vim/vimrcs/bundles.vim
 endif
-"source ~/.dotfiles/vim_runtime/vimrcs/bundles_conf.vim
+if filereadable(expand("~/.vim/vimrcs/bundle_conf.vim"))
+  source ~/.vim/vimrcs/bundle_conf.vim
+endif
 
+autocmd FileType vim set textwidth=80

@@ -11,42 +11,79 @@ Plugin 'VundleVim/Vundle.vim'
 
 
 
-"-----------------
+"-------------------------------------------------------------
 " Code Completion
-"-----------------
-" neocomplcache. Note: It is not maintained well. You should use neocomplete instead.
+"-------------------------------------------------------------
+
+"   neocomplcache. Note: It is not maintained well. You should use neocomplete 
+"   instead.
 "Plugin 'Shougo/neocomplcache'
 
-" It provides keyword completion system by maintaining a cache of keywords in the current buffer.
-" neocomplete can be customized easily and has many more features than Vim's built-in completion.
-" neocomplete requires Vim 7.3.885+ compiled with if_lua. If :echo has("lua") returns 1, then you're
-" done; otherwise, Mac: brew install vim --with-lua; Ubuntu: apt-get install vim-nox;
+"   It provides keyword completion system by maintaining a cache of keywords in
+"   the current buffer. neocomplete can be customized easily and has many more
+"   features than Vim's built-in completion. neo     complete requires Vim
+"   7.3.885+ compiled with if_lua. If :echo has("lua") returns 1, then you're
+"   done; otherwise, Mac: brew install vim --with-lua; Ubuntu: apt-get install
+"   vim-nox;
 Plugin 'Shougo/neocomplete'
+
+"   The Neosnippet plug-In adds snippet support to Vim. Snippets are small
+"   templates for commonly used code that you can fill in on the fly.
+"   neocomplcache/neocomplete is not required to use neosnippet, but it's
+"   highly recommended.
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+
+"   This library provides some utility functions. There isn't much need to 
+"   install it unless another plugin requires you to do so.
+"Plugin 'tomtom/tlib_vim'
+
+"   This repository contains snippets files for various programming languages.
+"   It is community-maintained and many people have contributed snippet files and
+"   other improvements already.
 Plugin 'honza/vim-snippets'
 "Plugin 'garbas/vim-snipmate'
+
+"   Supertab is a vim plugin which allows you to use <Tab> for all your insert
+"   completion needs (:help ins-completion).
 "Plugin 'ervandew/supertab'
-"Plugin 'mattn/zencoding-vim'
+
+"   emmet-vim is a vim plug-in which provides support for expanding abbreviations
+"   similar to emmet.
+"Plugin 'mattn/emmet-vim'
+
+"   YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for
+"   Vim.
 "Plugin 'Valloric/YouCompleteMe'
 
-"-----------------------
+
+
+"-------------------------------------------------------------
 " Surrounding Operation
-"-----------------------
+"-------------------------------------------------------------
+
+"   This plug-in provides automatic closing of quotes, parenthesis, brackets, etc.
 Plugin 'Raimondi/delimitMate'
+
+"   Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML
+"   tags, and more. The plugin provides mappings to easily delete, change and
+"   add such surroundings in pairs.
 Plugin 'tpope/vim-surround'
 
-"--------------
+
+
+"-------------------------------------------------------------
 " Code Reading
-"--------------
+"-------------------------------------------------------------
+
+"   The NERD tree allows you to explore your filesystem and to open files and
+"   directories.
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'mileszs/ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'tsaleh/vim-align'
+"Plugin 'tsaleh/vim-align'
 Plugin 'majutsushi/tagbar'
 "Plugin 'humiaozuzu/TabBar'
 Plugin 'godlygeek/tabular'
@@ -112,6 +149,11 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'gilesbowkett/ir_black'
 Plugin 'croaky/vim-colors-github'
 Plugin 'tomasr/molokai'
+
+"--------------
+" Misc
+"--------------
+"Plugin 'MarcWeber/vim-addon-mw-utils'
 
 
 "--------------
