@@ -395,12 +395,6 @@ endif
 let g:solarized_termcolors=256
 set t_Co=256
 
-try
-    colorscheme jellybeans
-catch
-    colorscheme desert
-endtry
-
 "}}}1
 
 

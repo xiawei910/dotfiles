@@ -111,9 +111,7 @@ let g:plugin_home = expand('$HOME/.vim/bundle/')
 " => neocomplete settings {{{1
 " => require lua
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-if 0 && isdirectory(expand(g:plugin_home . 'neocomplete'))
+if isdirectory(expand(g:plugin_home . 'neocomplete'))
 
     "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
     " Disable AutoComplPop.
@@ -271,7 +269,7 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Nerd Tree {{{1
+" => nerdtree {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if isdirectory(expand(g:plugin_home . 'nerdtree'))
 
@@ -295,8 +293,166 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if isdirectory(expand(g:plugin_home . 'nerdcommenter'))
 
+    "   The following key mappings are provided by default:
+    "
+    "[count]<leader>cc |NERDComComment|
+    "   Comment out the current line or text selected in visual mode.
+    "
+    "[count]<leader>c<space> |NERDComToggleComment|
+    "   Toggles the comment state of the selected line(s). If the topmost
+    "   selected line is commented, all selected lines are uncommented and vice
+    "   versa.
+
     " ,/ to invert comment on ther current line/selection
-    nmap <leader>/ :call NERDComment(0, "invert")<cr>
+    nnoremap <leader>/ :call NERDComment(0, "invert")<cr>
+
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 0
+    
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1
+    
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
+    
+    " Set a language to use its alternate delimiters by default
+    let g:NERDAltDelims_java = 1
+    
+    " Add your own custom formats or override the defaults
+    "let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+    
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    "let g:NERDCommentEmptyLines = 1
+    
+    " Enable trimming of trailing whitespace when uncommenting
+    "let g:NERDTrimTrailingWhitespace = 1
+
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => CTRL-P {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if isdirectory(expand(g:plugin_home . 'ctrlp.vim'))
+
+    " allow the ctrlp to start at the folder of current file unless cwd is ancester of current file
+    let g:ctrlp_working_path_mode = 'a'
+
+    " directory for cache files
+    let g:ctrlp_cache_dir = s:vim_cache . '/ctrlp_cache'
+
+    "let g:ctrlp_map = '<C-f>'
+    "map <C-b> :CtrlPBuffer<cr>
+    map <leader>fh :CtrlP<space>~<cr>
+    map <leader>fc :CtrlP<space><C-r>=expand('%:p:h')<cr>
+
+    let g:ctrlp_max_height = 20
+    "let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+    let g:ctrlp_custom_ignore = {
+        \ 'dir' : '\.git$\|\.hg$\|\.svn$' ,
+        \ 'file' : '\.exe$\|\.so$\|\.dll$\|^\.DS_Store\|^\.git\|^\.coffee' }
+
+    if executable('ag')
+        " Use Ag over Grep
+        set grepprg=ag\ --nogroup\ --nocolor
+        " Use ag in CtrlP for listing files.
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        " Ag is fast enough that CtrlP doesn't need to cache
+        let g:ctrlp_use_caching = 0
+    endif
+
+    "let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
+    "let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
+
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => tagbar {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if isdirectory(expand(g:plugin_home . 'tagbar'))
+
+    nmap <Leader>ba :TagbarToggle<CR>
+    let g:tagbar_type_go = {
+        \ 'ctagstype': 'go',
+        \ 'kinds' : [
+            \'p:package',
+            \'f:function',
+            \'v:variables',
+            \'t:type',
+            \'c:const'
+        \ ]
+    \ }
+    let g:tagbar_type_scala = {
+        \ 'ctagstype' : 'scala',
+        \ 'sro'       : '.',
+        \ 'kinds'     : [
+        \ 'p:packages',
+        \ 'T:types:1',
+        \ 't:traits',
+        \ 'o:objects',
+        \ 'O:case objects',
+        \ 'c:classes',
+        \ 'C:case classes',
+        \ 'm:methods',
+        \ 'V:values:1',
+        \ 'v:variables:1'
+        \ ]
+    \ }
+
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Powerline {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if isdirectory(expand(g:plugin_home . 'powerline'))
+
+    let g:Powerline_symbols = 'fancy'
+
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => MRU plugin {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if isdirectory(expand(g:plugin_home . 'mru.vim'))
+
+    let MRU_Max_Entries = 400
+    let MRU_File = s:vim_cache . '/_vim_mru_files'
+    map <leader>u :MRU<CR>
+
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => YankRing {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if isdirectory(expand(g:plugin_home . 'YankRing.vim'))
+
+    let g:yankring_history_dir = s:vim_cache
+
+    " ,y to show the yankring
+    nmap <leader>y :YRShow<cr>
+
+    " recommended replacing yk replace keys
+    let g:yankring_replace_n_pkey = '[k'
+    let g:yankring_replace_n_nkey = ']k'
 
 endif
 
@@ -307,7 +463,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => bufExplorer plugin {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if isdirectory(expand(g:plugin_home . 'bufexplorer.zip'))
+if 0 && isdirectory(expand(g:plugin_home . 'bufexplorer.zip'))
 
     let g:bufExplorerDefaultHelp=0
     let g:bufExplorerShowRelativePath=1
@@ -324,13 +480,27 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => MRU plugin {{{1
+" => syntastic settings {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if isdirectory(expand(g:plugin_home . 'mru.vim'))
+if isdirectory(expand(g:plugin_home . 'syntastic'))
 
-    let MRU_Max_Entries = 400
-    let MRU_File = s:vim_cache . '/_vim_mru_files'
-    map <leader>u :MRU<CR>
+    " Set the syntastic checking to passive mode
+    let g:syntastic_mode_map = { "mode" : "passive",
+                            \  "active_filetypes" : [],
+                            \  "passive_filetypes" : [] }
+
+    " Set the statusline format for syntastic part
+    let g:syntastic_stl_format = '[%E{E:%e#%fe}%B{+}%W{W:%w#%fw}]'
+
+    " Set the default python syntax checker
+    let g:syntastic_python_checker_args = 'pyflakes'
+
+    " configure syntastic syntax checking to check on open as well as save
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_wq = 0
 
 endif
 
@@ -371,58 +541,6 @@ if has("win16") || has("win32") || has("win64")
 else
     nmap <silent> <localleader>qt :ConqueTerm bash<cr>
 endif
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => YankRing {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:yankring_history_dir = s:vim_cache
-
-" ,y to show the yankring
-nmap <leader>y :YRShow<cr>
-
-" recommended replacing yk replace keys
-let g:yankring_replace_n_pkey = '[k'
-let g:yankring_replace_n_nkey = ']k'
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CTRL-P {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow the ctrlp to start at the folder of current file unless cwd is ancester of current file
-let g:ctrlp_working_path_mode = 'a'
-
-" directory for cache files
-let g:ctrlp_cache_dir = s:vim_cache . '/ctrlp_cache'
-
-let g:ctrlp_map = '<C-f>'
-"map <C-b> :CtrlPBuffer<cr>
-map <leader>fh :CtrlP<space>~<cr>
-map <leader>fc :CtrlP<space><C-r>=expand('%:p:h')<cr>
-
-let g:ctrlp_max_height = 20
-"let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-let g:ctrlp_custom_ignore = {
-    \ 'dir' : '\.git$\|\.hg$\|\.svn$' ,
-    \ 'file' : '\.exe$\|\.so$\|\.dll$\|^\.DS_Store\|^\.git\|^\.coffee' }
-
-if executable('ag')
-    " Use Ag over Grep
-    set grepprg=ag\ --nogroup\ --nocolor
-    " Use ag in CtrlP for listing files.
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " Ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-endif
-
-"let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
 
 " }}}1
 
@@ -567,31 +685,6 @@ let g:ipy_perform_mappings = 0
 " using 'local' or anything other than 'global' to change to
 " local buffer or disable it.
 let g:ipy_completefunc = 'null'
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => syntastic settings {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set the syntastic checking to passive mode
-let g:syntastic_mode_map = { "mode" : "passive",
-                          \  "active_filetypes" : [],
-                          \  "passive_filetypes" : [] }
-
-" Set the statusline format for syntastic part
-let g:syntastic_stl_format = '[%E{E:%e#%fe}%B{+}%W{W:%w#%fw}]'
-
-" Set the default python syntax checker
-let g:syntastic_python_checker_args = 'pyflakes'
-
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open = 1
-let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
 
 " }}}1
 
@@ -746,48 +839,3 @@ nmap [h <Plug>(GitGutterPrevHunk)
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => tagbar {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>ba :TagbarToggle<CR>
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \ ]
-\ }
-let g:tagbar_type_scala = {
-    \ 'ctagstype' : 'scala',
-    \ 'sro'       : '.',
-    \ 'kinds'     : [
-      \ 'p:packages',
-      \ 'T:types:1',
-      \ 't:traits',
-      \ 'o:objects',
-      \ 'O:case objects',
-      \ 'c:classes',
-      \ 'C:case classes',
-      \ 'm:methods',
-      \ 'V:values:1',
-      \ 'v:variables:1'
-    \ ]
-\ }
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Powerline {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if isdirectory(expand(g:plugin_home . 'powerline'))
-
-    "let g:Powerline_symbols = 'fancy'
-
-endif
-
-" }}}1

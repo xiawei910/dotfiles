@@ -15,4 +15,10 @@ if filereadable(expand("~/.vim/vimrcs/bundle_conf.vim"))
   source ~/.vim/vimrcs/bundle_conf.vim
 endif
 
+try
+    colorscheme jellybeans
+catch
+    colorscheme molokai
+endtry
+
 autocmd FileType vim set textwidth=80
