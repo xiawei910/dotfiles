@@ -132,7 +132,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " FileType related
-au BufNewFile,BufRead *.sql,*.btq set filetype=teradata
+au BufNewFile,BufRead *.btq set filetype=teradata
 
 " }}}1
 
