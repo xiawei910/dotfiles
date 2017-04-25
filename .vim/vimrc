@@ -18,7 +18,7 @@ endif
 try
     colorscheme jellybeans
 catch
-    colorscheme molokai
+    colorscheme default
 endtry
 
 autocmd FileType vim set textwidth=80

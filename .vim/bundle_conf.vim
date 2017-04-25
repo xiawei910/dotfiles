@@ -227,6 +227,73 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Jedi-vim settings {{{1
+" This one should not be used with pymode_rope simultaneously
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Goto command is default <leader>g
+let g:jedi#goto_assignments_command = "<localleader>g"
+
+" Get_definition command is default <leader>d
+let g:jedi#goto_definitions_command = "<localleader>d"
+
+" Show pydoc is default <S-K>
+let g:jedi#documentation_command = "<leader>k"
+
+" Use tabs or buffers, default tabs
+let g:jedi#use_tabs_not_buffers = 0
+
+" Popout on dot and goto the first one? default 1
+let g:jedi#popup_on_dot = 0
+
+" Refactoring command
+let g:jedi#rename_command = "<localleader>r"
+
+" Related names with the same origin list command
+let g:jedi#usages_command = "<localleader>n"
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Conque settings {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To leave the 'input mode', if <esc> is set, then the real <esc> needs double click
+"let g:ConqueTerm_EscKey = '<ESC>'
+
+" Toggle Conque Terminal mode
+let g:ConqueTerm_ToggleKey = '<F8>'
+
+" Execute current file in Conque, equal to :ConqueTermSplit 'CurrentFile'
+let g:ConqueTerm_ExecFileKey = '<nop>'
+
+" Send all content in current file to most recently opened Conque as input
+let g:ConqueTerm_SendFileKey = '<nop>'
+
+" Send the selected text to most recently opened Conque as input
+let g:ConqueTerm_SendVisKey = '<F9>'
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Conque shortcut settings {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nmap <silent> <localleader>qs :ConqueTerm /sasadmin/sas92home/SASFoundation/9.2/sas -nodms<cr><esc>:set ft=sas<cr>i
+"nmap <silent> <localleader>qb :ConqueTerm bteq<cr>.set width 3000<cr>.logon<esc>:set ft=teradata<cr>i
+nmap <silent> <localleader>qp :ConqueTerm ipython<cr>
+if has("win16") || has("win32") || has("win64")
+    nmap <silent> <localleader>qt :ConqueTerm powershell.exe<cr>
+else
+    nmap <silent> <localleader>qt :ConqueTerm bash<cr>
+endif
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipMate (beside <TAB> support <CTRL-j>) {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "ino <C-j> <C-r>=snipMate#TriggerSnippet()<cr>
@@ -509,38 +576,93 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Conque settings {{{1
+" => gundo {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" To leave the 'input mode', if <esc> is set, then the real <esc> needs double click
-"let g:ConqueTerm_EscKey = '<ESC>'
-
-" Toggle Conque Terminal mode
-let g:ConqueTerm_ToggleKey = '<F8>'
-
-" Execute current file in Conque, equal to :ConqueTermSplit 'CurrentFile'
-let g:ConqueTerm_ExecFileKey = '<nop>'
-
-" Send all content in current file to most recently opened Conque as input
-let g:ConqueTerm_SendFileKey = '<nop>'
-
-" Send the selected text to most recently opened Conque as input
-let g:ConqueTerm_SendVisKey = '<F9>'
+nnoremap <leader>gu :GundoToggle<cr>
 
 " }}}1
 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Conque shortcut settings {{{1
+" => auto correction settings {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <silent> <localleader>qs :ConqueTerm /sasadmin/sas92home/SASFoundation/9.2/sas -nodms<cr><esc>:set ft=sas<cr>i
-"nmap <silent> <localleader>qb :ConqueTerm bteq<cr>.set width 3000<cr>.logon<esc>:set ft=teradata<cr>i
-nmap <silent> <localleader>qp :ConqueTerm ipython<cr>
-if has("win16") || has("win32") || has("win64")
-    nmap <silent> <localleader>qt :ConqueTerm powershell.exe<cr>
-else
-    nmap <silent> <localleader>qt :ConqueTerm bash<cr>
-endif
+autocmd filetype markdown,mkd call AutoCorrect()
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => rainbow parentheses settings {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rbpt_colorpairs = [
+    \ ['black',       'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['brown',       'firebrick3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['red',         'firebrick3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ]
+
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => numbers settings {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:enable_numbers = 0
+nnoremap <Leader>re :NumbersOnOff<CR>
+nnoremap <Leader>rn :NumbersToggle<CR>
+let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree']
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LargeFile {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" It describes the minimum size of a file needed for it to be considered as a 'LargeFile', in megabytes.
+let g:LargeFile = 100
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-markdown {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_folding_disabled = 1
+
+" }}}1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => emmet {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable just for html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+let g:user_emmet_leader_key = '<C-Z>'
 
 " }}}1
 
@@ -551,14 +673,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated .git'
 set grepprg=/bin/grep\ -nH
-
-" }}}1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => gundo {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>gu :GundoToggle<cr>
 
 " }}}1
 
@@ -691,44 +805,6 @@ let g:ipy_completefunc = 'null'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Jedi-vim settings {{{1
-" This one should not be used with pymode_rope simultaneously
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Goto command is default <leader>g
-let g:jedi#goto_assignments_command = "<localleader>g"
-
-" Get_definition command is default <leader>d
-let g:jedi#goto_definitions_command = "<localleader>d"
-
-" Show pydoc is default <S-K>
-let g:jedi#documentation_command = "<leader>k"
-
-" Use tabs or buffers, default tabs
-let g:jedi#use_tabs_not_buffers = 0
-
-" Popout on dot and goto the first one? default 1
-let g:jedi#popup_on_dot = 0
-
-" Refactoring command
-let g:jedi#rename_command = "<localleader>r"
-
-" Related names with the same origin list command
-let g:jedi#usages_command = "<localleader>n"
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => auto correction settings {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd filetype markdown,mkd call AutoCorrect()
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim indent guides {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_enable_on_vim_startup = 1
@@ -761,60 +837,6 @@ let g:multi_cursor_skip_key = '<C-x>'
 let g:multi_cursor_quit_key = '<ESC>'
 let g:multi_cursor_exit_from_visual_mode = 1
 let g:multi_cursor_exit_from_insert_mode = 1
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => numbers settings {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:enable_numbers = 0
-nnoremap <Leader>re :NumbersOnOff<CR>
-nnoremap <Leader>rn :NumbersToggle<CR>
-
-" }}}1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => rainbow parentheses settings {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:rbpt_colorpairs = [
-"    \ ['black',       'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrchid3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'RoyalBlue3'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['brown',       'firebrick3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['gray',        'RoyalBlue3'],
-"    \ ['Darkblue',    'firebrick3'],
-"    \ ['red',         'firebrick3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['darkgreen',   'RoyalBlue3'],
-"    \ ['brown',       'RoyalBlue3'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrchid3'],
-"    \ ]
-
-"autocmd VimEnter * RainbowParenthesesToggle
-"autocmd Syntax * RainbowParenthesesLoadRound
-"autocmd Syntax * RainbowParenthesesLoadSquare
-"autocmd Syntax * RainbowParenthesesLoadBraces
-
-" }}}1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => emmet {{{1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" enable just for html/css
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-
-let g:user_emmet_leader_key = '<C-Z>'
 
 " }}}1
 

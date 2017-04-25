@@ -64,6 +64,23 @@ Plugin 'honza/vim-snippets'
 "   Vim.
 "Plugin 'Valloric/YouCompleteMe'
 
+"   Using the jedi autocompletion library for VIM.
+Plugin 'davidhalter/jedi-vim'
+
+"   Conque is a Vim plugin which allows you to run interactive programs, such as
+"   bash on linux or powershell.exe on Windows, inside a Vim buffer. In other
+"   words it is a terminal emulator which uses a Vim buffer to display the
+"   program output. 
+Plugin 'musicx/conque'
+
+"   Command-T is a Vim plug-in that provides an extremely fast "fuzzy" mechanism
+"   for:
+"       Opening files and buffers
+"       Jumping to tags and help
+"       Running commands, or previous searches and commands
+"   with a minimal number of keystrokes.
+"Plugin 'wincent/command-t'
+
 ""}}}1
 
 
@@ -205,89 +222,143 @@ Plugin 'vim-scripts/greplace.vim'
 "   find them.
 Plugin 'vim-syntastic/syntastic'
 
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-speeddating'
-Plugin 'sjl/gundo.vim'
-Plugin 'rizzatti/dash.vim'
+"   A tool to set up iabbrev.
+"Plugin 'tpope/vim-abolish'
+
+"   Correct common typos and misspellings as you type in Vim
 Plugin 'panozzaj/vim-autocorrect'
+
+"   pairs of handy bracket mappings
+"Plugin 'tpope/vim-unimpaired'
+
+"   If you've ever tried using the "." command after a plugin map, you were
+"   likely disappointed to discover it only repeated the last native command
+"   inside that map, rather than the map as a whole.  That disappointment ends
+"   today.  Repeat.vim remaps "." in a way that plugins can tap into it. 
+"Plugin 'tpope/vim-repeat'
+
+"   use CTRL-A/CTRL-X to increment dates, times, and more
+Plugin 'tpope/vim-speeddating'
+
+"   Gundo.vim is Vim plugin to visualize your Vim undo tree.
+"   Gundo requires Vim to be compiled with Python 2.4+
+Plugin 'sjl/gundo.vim'
+
+"   
+"   This Vim plugin will search for terms using the excellent Dash.app , making
+"   API lookups simple.
+Plugin 'rizzatti/dash.vim'
+
+"   Better Rainbow Parentheses
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'myusuf3/numbers.vim'
+
+"   numbers.vim is a plugin for intelligently toggling line numbers.
+"   This plugin alternates between relative numbering (relativenumber) and
+"   absolute numbering (number) for the active window depending on the mode you
+"   are in. In a GUI, it also functions based on whether or not the app has
+"   focus.
+"Plugin 'myusuf3/numbers.vim'
+
+"   Run Interactive is a Vim plugin for selectively running commands via an
+"   interactive shell. This allows you to take advantage of custom functions,
+"   aliases, etc that are configured via your login shell scripts.
 Plugin 'christoomey/vim-run-interactive'
+
+"   A two-way integration between Vim and IPython 0.11+ 
 "Plugin 'ivanov/vim-ipython'
+
+"   a Git wrapper so awesome, it should be illegal
 Plugin 'tpope/vim-fugitive'
-"Plugin 'vim-scripts/TabLineSet.vim'
-"Plugin 'nvie/vim-togglemouse'
-"Plugin 'humiaozuzu/fcitx-status'
+
+"   Rename the current file in the vim buffer + retain relative path.
 Plugin 'danro/rename.vim'
+
+"   Automatically create any non-existent directories before writing the buffer.
 Plugin 'pbrisbin/vim-mkdir'
+
+"   Editing large files can be a time consuming process as Vim is working on a
+"   number of things behind the scenes, such as maintaining an undo database,
+"   searching for a syntax highlighting synchronization point, etc.
+"   LargeFile.vim is a very small "plugin"; mostly, its just an autocmd that
+"   disables certain features of vim in the interests of speed.
+Plugin 'vim-scripts/LargeFile'
 
 "}}}1
 
 
 
 "-------------------------------------------------------------
-" Syntax/Indent for language enhancement
+" Syntax/Indent for language enhancement {{{1
 "-------------------------------------------------------------
-Plugin 'rweald/pig.vim'
+
+"   Enhanced version of the original Python syntax highlighting script.
+Plugin 'hdima/python-syntax'
+
+"   Pig syntax highlighting for vim
+Plugin 'motus/pig.vim'
+
+"   Syntax Script for SAS 9.1/9.2/9.3
 Plugin 'vim-scripts/SAS-Syntax'
-Plugin 'davidhalter/jedi-vim'
+
+"   Syntax highlighting, matching rules and mappings for the original Markdown
+"   and extensions.
 Plugin 'plasticboy/vim-markdown'
+
+"   This is a "bundle" for Vim that builds off of the initial Scala plugin
+"   modules by Stefan Matthias Aust and adds some more "stuff" that I find
+"   useful, including all of my notes and customizations.
 Plugin 'derekwyatt/vim-scala'
+
+"   emmet-vim is a vim plug-in which provides support for expanding
+"   abbreviations similar to emmet.
+"   Emmet is a plugin for many popular text editors which greatly improves HTML
+"   & CSS.
+Plugin 'mattn/emmet-vim'
+
 "Plugin 'klen/python-mode'
 "Plugin 'vim-scripts/Vim-R-plugin'
 "Plugin 'kchmck/vim-coffee-script'
-"Plugin 'tpope/vim-markdown'
 "Plugin 'nono/jquery.vim'
 "Plugin 'pangloss/vim-javascript'
 "Plugin '2072/PHP-Indenting-for-VIm'
 "Plugin 'tpope/vim-haml'
 "Plugin 'othree/html5.vim'
 "Plugin 'beyondwords/vim-jinja2'
-Plugin 'mattn/emmet-vim'
+"Plugin 'musicx/teradata'
+
+"}}}1
 
 
 
 "-------------------------------------------------------------
-" Color Scheme
+" Color Scheme {{{1
 "-------------------------------------------------------------
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'acarapetis/vim-colors-github'
 Plugin 'tomasr/molokai'
+"Plugin 'chriskempson/tomorrow-theme'
 "Plugin 'rickharris/vim-blackboard'
 "Plugin 'rickharris/vim-monokai'
 "Plugin 'tpope/vim-vividchalk'
 "Plugin 'Lokaltog/vim-distinguished'
+"Plugin 'hukl/Smyck-Color-Scheme'
+
+"}}}1
 
 
 
 "-------------------------------------------------------------
-" Misc
+" Misc {{{1
 "-------------------------------------------------------------
 "Plugin 'MarcWeber/vim-addon-mw-utils'
 "Plugin 'tsaleh/vim-align'
+"Plugin 'vim-scripts/TabLineSet.vim'
+"Plugin 'nvie/vim-togglemouse'
+"Plugin 'humiaozuzu/fcitx-status'
 
+"}}}1
 
-
-"-------------------------------------------------------------
-" Musicx Liu's Forks
-"-------------------------------------------------------------
-Plugin 'musicx/teradata'
-Plugin 'musicx/LargeFile'
-Plugin 'musicx/conque'
-
-
-"vim-scripts repos
-Plugin 'Python-Syntax'
-"Plugin 'Smyck-Color-Scheme'
-"Plugin 'daylerees'
-"Plugin 'tomorrow-theme'
-"Plugin 'Comments'
-
-"non github repos
-"Plugin 'git://git.wincent.com/command-t.git'
 
 
 "   All of your Plugins must be added before the following line
