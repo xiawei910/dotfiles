@@ -195,7 +195,7 @@ alias scd='screen -d'
 alias v='vim'
 #alias p='ps -Af | grep yijiliu'
 alias p='ps uxwf'
-alias hfs='hadoop fs'
+#alias hfs='hadoop fs'
 
 alias h='history'
 alias j='jobs -l'

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # Check for Homebrew,
 # Install if we don't have it
 if test ! $(which brew); then
@@ -43,9 +43,9 @@ brew install tmux
 brew install gcc
 brew install gdb
 brew install git
-brew install svn
+#brew install svn
 brew install make
-brew install python --with-brewed-openssl
+#brew install python --with-brewed-openssl
 #brew install gpatch
 #brew install nano
 #brew install emacs
@@ -53,8 +53,8 @@ brew install python --with-brewed-openssl
 #brew install go
 #brew install sbt
 #brew install scala
-#brew install node
-#brew install mongodb
+brew install node
+brew install mongodb
 #brew install apache-spark
 #brew install pyqt
 #brew install ag
@@ -65,5 +65,5 @@ brew install python --with-brewed-openssl
 
 ##### Vim #####
 brew install vim --override-system-vi --with-lua
-brew install macvim --override-system-vim --custom-system-icons --with-lua
+#brew install macvim --override-system-vim --custom-system-icons --with-lua
 
