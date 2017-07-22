@@ -208,7 +208,7 @@ alias print='/usr/bin/lp -o nobanner -d $LPDEST'
 alias pjet='enscript -h -G -fCourier9 -d $LPDEST'
 alias background='xv -root -quit -max -rmode 5'  
 alias du='du -kh'
-alias df='df -kTh'
+alias df='df -h'
 
 alias l='ls -l'
 alias la='ls -Al'
