@@ -6,6 +6,10 @@ if test ! $(which brew); then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+#Speed up for download in Mainland China
+export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
+echo "export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com" >> ~/.bash_profile
+
 # Update homebrew recipes
 brew update
 
@@ -13,7 +17,7 @@ brew tap homebrew/dupes
 brew tap homebrew/science
 
 ##### Install system tools #####
-brew install zsh
+#brew install zsh
 brew install wget
 brew install diffutils
 brew install findutils --with-default-names
