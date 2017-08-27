@@ -1,0 +1,11 @@
+"*":
+  core:
+    disabledPackages: [
+      "markdown-preview"
+    ]
+  editor:
+    softWrap: true
+    tabLength: 4
+    tabType: "soft"
+  welcome:
+    showOnStartup: false
