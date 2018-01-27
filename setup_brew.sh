@@ -66,6 +66,7 @@ brew install mongodb
 #brew install ag
 #brew install perl518   # must run "brew tap homebrew/versions" first!
 #brew install rsync
+brew install phantomjs
 
 
 

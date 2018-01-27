@@ -16,3 +16,9 @@ npm install -g cson
 pip install cson
 
 python update_config.py
+
+#additional package to 'markdown-preview-enhanced'
+#cd ~/.atom/
+#npm install phantomjs
+#cd -
+#brew install phantomjs
