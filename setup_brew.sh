@@ -74,3 +74,6 @@ brew install phantomjs
 brew install vim --override-system-vi --with-lua
 #brew install macvim --override-system-vim --custom-system-icons --with-lua
 
+
+brew cask install atom
+brew cask install iina
