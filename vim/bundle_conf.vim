@@ -587,7 +587,7 @@ nnoremap <leader>gu :GundoToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => auto correction settings {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd filetype markdown,mkd call AutoCorrect()
+"autocmd filetype markdown,mkd call AutoCorrect()
 
 " }}}1
 
