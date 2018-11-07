@@ -7,6 +7,7 @@ apm install tablr
 apm install pretty-json
 apm install rst-preview
 apm install atom-beautify
+apm install atom-runner
 
 #additional package
 pip install sqlparse
