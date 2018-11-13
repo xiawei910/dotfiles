@@ -77,3 +77,4 @@ brew install vim --override-system-vi --with-lua
 
 brew cask install atom
 brew cask install iina
+brew cask install google-chrome
