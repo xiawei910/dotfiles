@@ -8,6 +8,7 @@ apm install pretty-json
 apm install rst-preview
 apm install atom-beautify
 apm install atom-runner
+apm install autocomplete-python
 
 #additional package
 pip install sqlparse

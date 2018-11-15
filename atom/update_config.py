@@ -7,13 +7,13 @@ import cson
 original_config = os.path.expanduser('~/.atom/config.cson')
 local_config = './config.cson'
 tmp_config = './config.json'
+local_conf = cson.load(open(local_config, 'r'))
 try:
     atom_conf = cson.load(open(original_config, 'r'))
 except:
     print('Original config NOT found, create a new one')
-    atom_conf = None
+    atom_conf = local_conf
 
-local_conf = cson.load(open(local_config, 'r'))
 
 
 def deepupdate(target, src):
@@ -43,4 +43,4 @@ cson.dump(atom_conf, open(tmp_config, 'w'))
 
 cmd = 'json2cson --2spaces %s > %s' % (tmp_config, original_config)
 os.system(cmd)
-print('Updata %s success.' % original_config)
+os.system('rm %s' % tmp_config)
