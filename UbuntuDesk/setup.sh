@@ -1,3 +1,5 @@
+# Change apt-source
+# https://developer.aliyun.com/mirror/ubuntu
 
 # Sougou pingyin
 # Support:
@@ -9,3 +11,10 @@ sudo apt install libgsettings-qt1
 
 # Latex
 sudo apt-get install texlive-latex-base latex-cjk-all texlive-latex-extra texmaker texlive-xetex texlive-publishers latexmk
+
+# pip
+mkdir ~/.pip
+echo "[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+[install]
+trusted-host = https://pypi.tuna.tsinghua.edu.cn" > ~/.pip/pip.conf
